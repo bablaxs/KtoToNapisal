@@ -89,7 +89,7 @@ const questions = [
 " Najgorsza rzecz, którą powiedziałeś komuś w łóżku i naprawdę to miałeś na myśli. ",
 " Gdyby Twój partner musiał oglądać Cię jak uprawiasz seks z kimś innym – kogo byś wybrał, żeby go najbardziej zniszczyć? "
 ];
-
+let usedQuestions = [];
 const avatars = ["😈", "👻", "🥸", "🤡", "💩", "👽", "👹", "🐶"];
 
 let game = {
@@ -126,7 +126,20 @@ function randomCode() {
   for (let i = 0; i < 5; i++) code += chars[Math.floor(Math.random() * chars.length)];
   return code;
 }
+function getRandomQuestion() {
+  if (usedQuestions.length >= questions.length) {
+    usedQuestions = [];
+  }
 
+  let question;
+
+  do {
+    question = questions[Math.floor(Math.random() * questions.length)];
+  } while (usedQuestions.includes(question));
+
+  usedQuestions.push(question);
+  return question;
+}
 function getVisibleStateKey() {
   return [
     game.roomState,
@@ -376,7 +389,7 @@ async function startGame() {
     await db.from("players").update({ score: 0 }).eq("id", player.id);
   }
 
-  const question = questions[Math.floor(Math.random() * questions.length)];
+  const question = getRandomQuestion();
 
   const { error } = await db
     .from("rooms")
@@ -707,7 +720,7 @@ async function nextGuessOrRound() {
   await db.from("answers").delete().eq("room_code", game.roomCode);
   await db.from("guesses").delete().eq("room_code", game.roomCode);
 
-  const question = questions[Math.floor(Math.random() * questions.length)];
+ const question = getRandomQuestion();
 
   const { error } = await db
     .from("rooms")
