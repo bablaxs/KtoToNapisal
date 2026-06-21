@@ -190,8 +190,10 @@ async function loadPlayers() {
     return;
   }
 
-  game.players = data || [];
-  renderPlayers();
+console.log("Pobrani gracze:", data);
+
+game.players = data || [];
+renderPlayers();
 }
 
 function listenPlayers() {
@@ -218,7 +220,8 @@ function listenPlayers() {
     });
 }
 setInterval(async () => {
-  if (game.roomCode && screens.lobby.classList.contains("active")) {
+  if (game.roomCode) {
+    console.log("Odświeżam graczy dla pokoju:", game.roomCode);
     await loadPlayers();
   }
 }, 2000);
