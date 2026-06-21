@@ -207,7 +207,38 @@ function getVisibleStateKey() {
     game.guesses.length
   ].join("|");
 }
+async function leaveRoom() {
+  if (!myPlayerId) {
+    showScreen("start");
+    return;
+  }
 
+  await db
+    .from("players")
+    .delete()
+    .eq("id", myPlayerId);
+
+  myPlayerId = null;
+  isHost = false;
+  isJoining = false;
+  isProcessing = false;
+  lastStateKey = "";
+
+  game = {
+    roomCode: "",
+    roomState: "lobby",
+    players: [],
+    answers: [],
+    guesses: [],
+    round: 1,
+    maxRounds: 5,
+    currentQuestion: "",
+    currentAnswerIndex: 0
+  };
+
+  document.getElementById("codeInput").value = "";
+  showScreen("start");
+}
 async function createRoom() {
   const nick = document.getElementById("nickInput").value.trim();
   if (!nick) return alert("Wpisz nick.");
