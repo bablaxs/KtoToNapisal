@@ -316,7 +316,15 @@ if (music.paused) {
   await loadAll();
   showScreen("lobby");
 }
+function playKtoNapisal() {
+  const sound = document.getElementById("ktoNapisalSound");
 
+  if (!sound) return;
+
+  sound.currentTime = 0;
+  sound.volume = 0.35;
+  sound.play().catch(() => {});
+}
 async function joinRoom() {
   const music = document.getElementById("bgMusic");
 
