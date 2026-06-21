@@ -67,7 +67,27 @@ const questions = [
   "Jaki byłby najgłupszy powód do kłótni?",
   "Co zrobiłbyś, gdyby internet zniknął na tydzień?",
   "Jaka byłaby najgorsza nazwa kanału na YouTube?",
-  "Co powiedziałby twój komputer, gdyby miał emocje?"
+  "Co powiedziałby twój komputer, gdyby miał emocje?",
+  " Jaki jest najgorszy sposób, w jaki masturbowałeś się w życiu? (szczegóły mile widziane) ",
+" Gdybyś miał przelecieć kogoś z rodziny, ale nikt by się nigdy nie dowiedział – kogo wybierasz i dlaczego? ",
+" Opisz swoją najbrudniejszą fantazję, w której przynajmniej jedna osoba kończy martwa. ",
+" Co byś zrobił ze zwłokami swojego największego wroga, gdybyś mógł zrobić absolutnie wszystko? ",
+" Jaka jest najdziwniejsza rzecz, którą miałeś w dupie (dosłownie lub w przenośni)? ",
+" Gdybyś mógł zamienić się w kobiece ciało na jeden dzień, co byś sobie najpierw zrobił? ",
+" Opisz najgorszą rzecz, jaką zrobiłeś komuś seksualnie, a potem udawałeś, że nic się nie stało. ",
+" Co byś wolał: codziennie srać na środku rynku w swoim mieście czy codziennie robić loda swojemu szefowi? ",
+" Jaki fetysz masz taki, że sam się czasem brzydzisz, że Cię to jara? ",
+" Gdyby Twoja mama przeczytała Twoją historię przeglądarki z ostatnich 30 dni – co by ją najbardziej zabiło? ",
+" Opisz seks, który miałeś, po którym najmocniej chciałeś umrzeć ze wstydu. ",
+" Gdybyś miał zgwałcić czyjś umysł słowami, jakie pytanie byś zadał na pierwszej randce? ",
+" Co jest Twoim guilty pleasure, które jest tak chore, że nigdy nikomu nie przyznałeś? ",
+" Którą osobę z tej gry najchętniej byś związał i robił jej rzeczy, za które poszedłbyś siedzieć? ",
+" Opisz swój idealny wieczór, w którym kończysz w kajdankach i z workiem na głowie. ",
+" Jaka jest najpodlejsza rzecz, jaką zrobiłeś komuś tylko po to, żeby się podniecić? ",
+" Gdybyś mógł mieć seks z dowolną postacią z bajki dla dzieci – którą wybierasz i jak dokładnie to wygląda? ",
+" Co byś zrobił, gdybyś obudził się jako kobieta w ciele najbrzydszej osoby w tym czacie? ",
+" Najgorsza rzecz, którą powiedziałeś komuś w łóżku i naprawdę to miałeś na myśli. ",
+" Gdyby Twój partner musiał oglądać Cię jak uprawiasz seks z kimś innym – kogo byś wybrał, żeby go najbardziej zniszczyć? "
 ];
 
 const avatars = ["😈", "👻", "🥸", "🤡", "💩", "👽", "👹", "🐶"];
