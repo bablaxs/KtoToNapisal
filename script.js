@@ -239,6 +239,22 @@ async function leaveRoom() {
   document.getElementById("codeInput").value = "";
   showScreen("start");
 }
+async function kickPlayer(playerId) {
+  if (!isHost) return;
+
+  const player = game.players.find(p => p.id === playerId);
+
+  if (!player) return;
+
+  if (!confirm(`Wyrzucić ${player.name}?`)) return;
+
+  await db
+    .from("players")
+    .delete()
+    .eq("id", playerId);
+
+  await loadPlayers();
+}
 async function createRoom() {
   const nick = document.getElementById("nickInput").value.trim();
   if (!nick) return alert("Wpisz nick.");
@@ -450,10 +466,16 @@ function renderPlayers() {
     const div = document.createElement("div");
     div.className = "player";
     div.innerHTML = `
-      <span class="avatar">${player.avatar || "🙂"}</span>
-      <b>${player.name}</b>
-      ${player.is_host ? `<span class="host-badge">Host</span>` : ""}
-    `;
+  <span class="avatar">${player.avatar || "🙂"}</span>
+  <b>${player.name}</b>
+  ${player.is_host ? `<span class="host-badge">Host</span>` : ""}
+
+  ${
+    isHost && player.id !== myPlayerId
+      ? `<button class="kick-btn" onclick="kickPlayer('${player.id}')">✖</button>`
+      : ""
+  }
+`;
     list.appendChild(div);
   });
 }
