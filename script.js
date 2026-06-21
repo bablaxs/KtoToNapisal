@@ -45,6 +45,7 @@ let game = {
 function showScreen(name) {
   Object.values(screens).forEach(screen => screen.classList.remove("active"));
   screens[name].classList.add("active");
+  updateHostControls();
 }
 
 function randomCode() {
@@ -100,10 +101,11 @@ async function createRoom() {
 
   document.getElementById("roomCode").textContent = code;
 
-  await loadPlayers();
-  listenPlayers();
+await loadPlayers();
+listenPlayers();
+await loadPlayers();
 
-  showScreen("lobby");
+showScreen("lobby");
 }
 
 async function joinRoom() {
@@ -195,25 +197,37 @@ async function loadPlayers() {
 function listenPlayers() {
   db.removeAllChannels();
 
-  db.channel("players-" + game.roomCode)
+  const channel = db.channel("players-" + game.roomCode);
+
+  channel
     .on(
       "postgres_changes",
       {
         event: "*",
         schema: "public",
-        table: "players",
-        filter: `room_code=eq.${game.roomCode}`
+        table: "players"
       },
       async (payload) => {
-        console.log("Zmiana players:", payload);
-        await loadPlayers();
+        if (payload.new?.room_code === game.roomCode || payload.old?.room_code === game.roomCode) {
+          await loadPlayers();
+        }
       }
     )
     .subscribe((status) => {
-      console.log("Realtime status:", status);
+      console.log("Realtime players:", status);
     });
 }
+setInterval(async () => {
+  if (game.roomCode && screens.lobby.classList.contains("active")) {
+    await loadPlayers();
+  }
+}, 2000);
+function updateHostControls() {
+  const btn = document.getElementById("startGameBtn");
+  if (!btn) return;
 
+  btn.style.display = isHost ? "block" : "none";
+}
 function renderPlayers() {
   const list = document.getElementById("playersList");
   list.innerHTML = "";
@@ -240,6 +254,10 @@ function copyCode() {
 }
 
 function startGame() {
+    if (!isHost) {
+  alert("Tylko host może rozpocząć grę.");
+  return;
+}
   if (game.players.length < 2) {
     alert("Dodaj minimum 2 graczy.");
     isJoining = false;
