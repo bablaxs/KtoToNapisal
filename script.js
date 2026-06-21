@@ -248,7 +248,7 @@ function playClick() {
 
   if (!sound) return;
 
-  sound.currentTime = 1; 
+  sound.currentTime = 1.8; 
   sound.play().catch(() => {});
 }
 async function kickPlayer(playerId) {
