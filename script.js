@@ -381,19 +381,18 @@ async function loadRoomOnly() {
   game.currentAnswerIndex = room.current_answer_index || 0;
 }
 
-async function loadPlayers() {
+async function loadAnswers() {
   if (!game.roomCode) return;
 
   const { data, error } = await db
-    .from("players")
+    .from("answers")
     .select("*")
     .eq("room_code", game.roomCode)
     .order("created_at", { ascending: true });
 
   if (error) return console.error(error);
 
-  game.players = data || [];
-  renderPlayers();
+  game.answers = (data || []).sort(() => Math.random() - 0.5);
 }
 
 async function loadAnswers() {
